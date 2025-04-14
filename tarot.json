@@ -1,0 +1,25 @@
+[
+    { "name": "The Fool", "path": "C:/bot/tarot/00.The Fool.png" },
+    { "name": "The Magician", "path": "C:/bot/tarot/01.The Magician.png" },
+    { "name": "The High Priestess", "path": "C:/bot/tarot/02.The High Priestess.png" },
+    { "name": "The Empress", "path": "C:/bot/tarot/03.The Empress.png" },
+    { "name": "The Emperor", "path": "C:/bot/tarot/04.The Emperor.png" },
+    { "name": "The Hierophant", "path": "C:/bot/tarot/05.The Hierophant.png" },
+    { "name": "The Lovers", "path": "C:/bot/tarot/06.The Lovers.png" },
+    { "name": "The Chariot", "path": "C:/bot/tarot/07.The Chariot.png" },
+    { "name": "Strength", "path": "C:/bot/tarot/08.Strength.png" },
+    { "name": "The Hermit", "path": "C:/bot/tarot/09.The Hermit.png" },
+    { "name": "Wheel of Fortune", "path": "C:/bot/tarot/10.Wheel of Fortune.png" },
+    { "name": "Justice", "path": "C:/bot/tarot/11.Justice.png" },
+    { "name": "The Hanged Man", "path": "C:/bot/tarot/12.The Hanged Man.png" },
+    { "name": "Death", "path": "C:/bot/tarot/13.death.png" },
+    { "name": "Temperance", "path": "C:/bot/tarot/14.Temperance.png" },
+    { "name": "The Devil", "path": "C:/bot/tarot/15.The Devil.png" },
+    { "name": "The Tower", "path": "C:/bot/tarot/16.The Tower.png" },
+    { "name": "The Star", "path": "C:/bot/tarot/17.The Star.png" },
+    { "name": "The Moon", "path": "C:/bot/tarot/18.The Moon.png" },
+    { "name": "The Sun", "path": "C:/bot/tarot/19.The Sun.png" },
+    { "name": "Judgement", "path": "C:/bot/tarot/20.Judgement.png" },
+    { "name": "The World", "path": "C:/bot/tarot/21.The World.png" }
+  ]
+  
