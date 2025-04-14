@@ -4,11 +4,9 @@ from discord.ext import commands
 import random
 import os
 import json
-from dotenv import load_dotenv
 
 # .env 파일에서 토큰 로드
-load_dotenv()
-TOKEN = os.getenv("DISCORD_TOKEN")
+TOKEN = '당신의 Discord Bot Token을 여기에 입력하세요'
 
 
 # 인텐트 설정
@@ -19,25 +17,25 @@ intents.message_content = True
 # commands.Bot만 사용
 bot = commands.Bot(command_prefix="!", intents=intents)
 
+# 타로카드
 with open("tarot.json", "r", encoding="utf-8") as f:
     TAROT_CARDS = json.load(f)
 
+# 점메추
 with open("food.json", "r", encoding="utf-8") as f:
     FOOD_MENU = json.load(f)
 
+# 여담
 with open("bullshit.json", "r", encoding="utf-8") as f:
     BULLSHIT = json.load(f)
 
-COIN = [
-    {
-        "name":"앞면",
-        "url":"https://c.tenor.com/IrW2J8NTd2UAAAAC/tenor.gif"
-    },
-    {
-        "name":"뒷면",
-        "url":"https://c.tenor.com/Lg-6d1Ruke4AAAAC/tenor.gif"
-    }
-]
+# 동전
+with open("coin.json", "r", encoding="utf-8") as f:
+    COIN = json.load(f)
+
+# 호모
+with open("homo.json", "r", encoding="utf-8") as f:
+    HOMO = json.load(f)
 
 
 @bot.event
@@ -49,9 +47,9 @@ async def on_ready():
 async def help(ctx):
     embed = discord.Embed(
         title="현재 사용 가능한 명령어 목록입니다.",
-        description="타로카드\n동전\n점메추\n선택\n여담\n주사위\n"
+        description="타로카드\n동전\n점메추\n선택\n여담\n주사위\n호모\n"
     )
-    embed.set_image(url="https://t1.daumcdn.net/news/202105/25/ppss/20210525045052409gkal.jpg")
+    embed.set_image(url="https://file.retrotv.me/u/mBvP9w.jpg")
     await ctx.send(embed=embed)
 
 
@@ -59,15 +57,14 @@ async def help(ctx):
 async def tarot(ctx):
     selected = random.choice(TAROT_CARDS)
     name = selected["name"]
-    path = selected["path"]
+    url = selected["url"]
 
-    file = discord.File(path, filename="tarot.png")
     embed = discord.Embed(
         title=f"{name}",
         color=0x6A5ACD
     )
-    embed.set_image(url="attachment://tarot.png")
-    await ctx.send(file=file, embed=embed)
+    embed.set_image(url=url)
+    await ctx.send(embed=embed)
 
 
 @bot.command(name="동전")
@@ -117,6 +114,60 @@ async def dice(ctx, number: int = 6):
 
     result = random.randint(1, number)
     await ctx.send(f"주사위 결과는: {result}")
+
+
+@bot.command(name="호모")
+async def homo(ctx):
+
+    # 이미지 데이터 로드
+    image_data = HOMO
+    if not image_data:
+        embed = discord.Embed(
+            title="호모! 이미지가 없어요!",
+            color=0x00008B
+        )
+
+        await ctx.send(embed=embed)
+        return
+
+    # 랜덤으로 이미지 선택
+    image_info = random.choice(image_data)
+
+    # 임베드 생성
+    embed = discord.Embed(
+        title="호모",
+        description="당신은 이제 호모입니다.",
+        color=0x00008B
+    )
+
+    # 이미지 파일 경로가 있는 경우
+    file_name = image_info.get("file_name")
+    url = image_info.get("url")
+
+    if file_name:
+        image_path = os.path.join("images", file_name)
+        if os.path.exists(image_path):
+            with open(image_path, "rb") as f:
+                file = discord.File(f, filename=file_name)
+                embed.set_image(url=f"attachment://{file_name}")
+                await ctx.send(embed=embed, file=file)
+
+                return
+
+    # 이미지 URL이 있는 경우
+    elif url:
+        embed.set_image(url=url)
+        await ctx.send(embed=embed)
+
+        return
+
+    # 파일 경로와 URL이 모두 없는 경우
+    embed = discord.Embed(
+        title="호모! 이미지가 없어요!",
+        color=0x00008B
+    )
+
+    await ctx.send(embed=embed)
 
 
 bot.run(TOKEN)
